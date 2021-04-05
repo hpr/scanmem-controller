@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <dlfcn.h>
 #include <stdbool.h>
- 
+
 // ./configure CFLAGS=-fPIC CXXFLAGS=-fPIC
 // make
-// gcc -shared *.o -o libscanmem.so
+// library -> .libs/libscanmem.so.1.0.0
 
 int main() {
   void *scanmemlib;
@@ -37,7 +37,7 @@ int main() {
     sm_cleanup();
     dlclose(scanmemlib);
   } else {
-    printf("could not read library\n");
+    printf("could not read library: %s\n", dlerror());
   }
   return EXIT_SUCCESS;
 }
