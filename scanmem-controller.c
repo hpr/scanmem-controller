@@ -9,10 +9,27 @@
 
 #include "ScanmemController.h"
 
+void *libscanmem;
+const char *(*sm_get_version)(void);
+static const char *JNIT_CLASS = "ScanmemController";
+
+JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+  libscanmem = dlopen("./libscanmem.so.1.0.0", RTLD_LAZY);
+  sm_get_version = dlsym(libscanmem, "sm_get_version");
+  return JNI_VERSION_1_6;
+}
+
 JNIEXPORT jstring JNICALL Java_ScanmemController_s_1get_1version(JNIEnv *env, jclass obj) {
-  void *scanmemlib = dlopen("./libscanmem.so.1.0.0", RTLD_LAZY);
-  const char *(*sm_get_version)(void) = dlsym(scanmemlib, "sm_get_version");
   return (*env)->NewStringUTF(env, sm_get_version());
+}
+
+JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
+  dlclose(libscanmem);
+
+  JNIEnv *env;
+  (*vm)->GetEnv(vm, (void **)&env, JNI_VERSION_1_6);
+	jclass cls = (*env)->FindClass(env, JNIT_CLASS);
+	(*env)->UnregisterNatives(env, cls);
 }
 
 // int main() {
