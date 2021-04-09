@@ -1,6 +1,10 @@
 class ScanmemController {
   static {
-    System.loadLibrary("scanmem-controller");
+    try {
+      System.loadLibrary("scanmem-controller");
+    } catch (java.lang.UnsatisfiedLinkError e) {
+      System.out.println(e.getMessage());
+    }
   }
   private static native String sm_get_version();
   private static native boolean sm_init();
