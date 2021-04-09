@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "scanmemcontroller.h": "c",
+    "stdbool.h": "c"
+  }
+}
