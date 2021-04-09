@@ -9,11 +9,43 @@ extern "C" {
 #endif
 /*
  * Class:     ScanmemController
- * Method:    s_get_version
+ * Method:    sm_get_version
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_ScanmemController_s_1get_1version
+JNIEXPORT jstring JNICALL Java_ScanmemController_sm_1get_1version
   (JNIEnv *, jclass);
+
+/*
+ * Class:     ScanmemController
+ * Method:    sm_init
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_ScanmemController_sm_1init
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ScanmemController
+ * Method:    sm_set_backend
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ScanmemController_sm_1set_1backend
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ScanmemController
+ * Method:    sm_cleanup
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ScanmemController_sm_1cleanup
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ScanmemController
+ * Method:    sm_backend_exec_cmd
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_ScanmemController_sm_1backend_1exec_1cmd
+  (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
 }
