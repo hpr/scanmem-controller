@@ -1,7 +1,6 @@
 class ScanmemController {
   static {
-    //System.loadLibrary("scanmem-controller");
-    System.load("/home/habs/rn/scanmem-controller/scanmem-controller.so");
+    System.loadLibrary("scanmem-controller");
   }
   private static native String sm_get_version();
   private static native boolean sm_init();
