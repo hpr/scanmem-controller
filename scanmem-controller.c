@@ -17,8 +17,6 @@ unsigned long (*sm_get_num_matches)(void);
 void (*sm_backend_exec_cmd)(const char *);
 void (*sm_cleanup)(void);
 
-static const char *JNIT_CLASS = "ScanmemController";
-
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
   libscanmem = dlopen("./libscanmem.so.1.0.0", RTLD_LAZY);
   if (libscanmem == NULL) printf(dlerror());
@@ -58,9 +56,4 @@ JNIEXPORT void JNICALL Java_ScanmemController_sm_1backend_1exec_1cmd(JNIEnv *env
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
   sm_cleanup();
   dlclose(libscanmem);
-
-  JNIEnv *env;
-  (*vm)->GetEnv(vm, (void **)&env, JNI_VERSION_1_6);
-	jclass cls = (*env)->FindClass(env, JNIT_CLASS);
-	(*env)->UnregisterNatives(env, cls);
 }
