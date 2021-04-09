@@ -19,7 +19,7 @@ void (*sm_cleanup)(void);
 
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
   libscanmem = dlopen("./libscanmem.so.1.0.0", RTLD_LAZY);
-  if (libscanmem == NULL) printf(dlerror());
+  if (libscanmem == NULL) printf("%s", dlerror());
   sm_get_version = dlsym(libscanmem, "sm_get_version");
   sm_init = dlsym(libscanmem, "sm_init");
   sm_set_backend = dlsym(libscanmem, "sm_set_backend");
